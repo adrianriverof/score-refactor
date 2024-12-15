@@ -136,14 +136,6 @@ func matar_cuca_wallriding():
 func matar_cuca_en_aire():
 	matar_cuca(0, 2)
 	
-func matar_cuca_headshot():
-	matar_cuca(25, 0)
-
-func matar_cuca_headshot_aire():
-	matar_cuca(25, 2)
-
-func matar_cuca_headshot_wallride():
-	matar_cuca(25, 3)
 
 
 func puntos_cuca_segun_tiempo():
