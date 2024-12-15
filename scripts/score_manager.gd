@@ -143,10 +143,7 @@ func matar_cuca(extra_base = 0, extra_combo = 0):
 
 func combo():
 	return 3 * combo_time_in_spree()
-
-
-func puntos_cuca_segun_tiempo():
-	return puntos_por_cuca + 25*time_passed
+	
 
 
 func combo_time_in_spree():
