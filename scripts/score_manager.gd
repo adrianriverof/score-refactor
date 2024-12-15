@@ -90,7 +90,7 @@ func decrease_combo_level():
 
 func select_combo_level_based_on_time() -> int:
 	if in_combo():
-		combo_level = calculate_combo_level(calculate_time_in_spree())
+		combo_level = calculate_combo_level(calculate_time_in_spree(time_passed))
 		return combo_level
 	else: 
 		lose_combo()
@@ -149,13 +149,13 @@ func combo():
 func combo_time_in_spree():
 
 	if in_combo():
-		return (calculate_time_in_spree())
+		return (calculate_time_in_spree(time_passed))
 	else:
 		return 0 
 	
-func calculate_time_in_spree():
+func calculate_time_in_spree(passed_time: float):
 
-		var tiempo = (time_passed - first_killtime_in_spree)
+		var tiempo = (passed_time - first_killtime_in_spree)
 
 		update_max_combo()
 
