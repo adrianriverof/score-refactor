@@ -256,8 +256,18 @@ func test_max_combo_shows_max_combo():
 	
 	assert_eq(sut.max_combo_time,(3))
 	
-
-
-
-
-
+func test_second_max_combo():
+	var sut = ScoreManager.new()
+	
+	sut.update_max_combo()
+	sut.matar_cuca()
+	sut.time_passed = 15
+	sut.matar_cuca()
+	sut.time_passed += 1
+	sut.matar_cuca()
+	sut.time_passed += 1
+	sut.matar_cuca()
+	sut.time_passed += 1
+	sut.update_max_combo()
+	
+	assert_eq(sut.second_max_combo_time,(1))
