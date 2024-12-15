@@ -8,7 +8,7 @@ var huevo_golpeado = false
 var huevo_golpeado_ultimo_segundo = false
 
 var max_combo_time = 0
-
+var second_max_combo_time = 0
 
 var puntos_por_cuca = 100
 var multip_cuca_melee = 4
