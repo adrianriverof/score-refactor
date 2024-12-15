@@ -11,7 +11,6 @@ var max_combo_time = 0
 
 
 var puntos_por_cuca = 100
-var multip_cuca_distancia = 2
 var multip_cuca_melee = 4
 
 export var last_kill_time = -100
@@ -45,6 +44,25 @@ var required_kills_combo_4 = 6
 var required_kills_combo_5 = 10
 
 
+func calculate_combo_level(time_in_combo: float) -> int:
+
+	if time_in_combo < required_time_combo_2 or kills_durante_combo < required_kills_combo_2:
+		return 1
+
+	elif time_in_combo < required_time_combo_3 or kills_durante_combo < required_kills_combo_3:
+		return 2
+
+	elif time_in_combo < required_time_combo_4 or kills_durante_combo < required_kills_combo_4:
+		return 3
+
+	elif time_in_combo < required_time_combo_5 or kills_durante_combo < required_kills_combo_5:
+		return 4
+
+	elif time_in_combo < 20.0:
+		return 5
+
+	else:
+		return 5
 
 
 func get_score():
@@ -68,25 +86,6 @@ func decrease_combo_level():
 		combo_level -= 1
 
 
-func calculate_combo_level(time_in_combo: float) -> int:
-	
-	if time_in_combo < required_time_combo_2 or kills_durante_combo < required_kills_combo_2:
-		return 1
-	
-	elif time_in_combo < required_time_combo_3 or kills_durante_combo < required_kills_combo_3:
-		return 2
-	
-	elif time_in_combo < required_time_combo_4 or kills_durante_combo < required_kills_combo_4:
-		return 3
-	
-	elif time_in_combo < required_time_combo_5 or kills_durante_combo < required_kills_combo_5:
-		return 4
-	
-	elif time_in_combo < 20.0:
-		return 5
-	
-	else:
-		return 5
 
 
 func select_combo_level_based_on_time() -> int:
@@ -97,13 +96,21 @@ func select_combo_level_based_on_time() -> int:
 		lose_combo()
 		return combo_level
 
-func calculate_time(delta):
-	time_passed += delta
-	
+
 
 func add_score(points:int):
 	score += points
 
+
+func matar_cuca_wallriding():
+	matar_cuca(0, 3)
+
+func matar_cuca_en_aire():
+	matar_cuca(0, 2)
+
+func calculate_time(delta):
+	time_passed += delta
+	
 
 func cuca_muerta_mira_este_player(player):
 	
@@ -117,30 +124,50 @@ func cuca_muerta_mira_este_player(player):
 	else:
 	
 		matar_cuca()
-	
+
+
 
 
 func matar_cuca(extra_base = 0, extra_combo = 0):
 	
 	add_score(
-		(puntos_cuca_segun_tiempo() + extra_base) * 
-		(multip_cuca_distancia + combo()+ extra_combo) 
+		(puntos_por_cuca + 25*time_passed + extra_base) * 
+		(2 + combo() + extra_combo) 
 		)
+	
+
+	
 	update_last_time_killed()
 	kills_durante_combo += 1
-	
-	
-func matar_cuca_wallriding():
-	matar_cuca(0, 3)
-	
-func matar_cuca_en_aire():
-	matar_cuca(0, 2)
-	
+
+
+func combo():
+	return 3 * combo_time_in_spree()
 
 
 func puntos_cuca_segun_tiempo():
 	return puntos_por_cuca + 25*time_passed
+
+
+func combo_time_in_spree():
+
+	if in_combo():
+		return (calculate_time_in_spree())
+	else:
+		return 0 
 	
+func calculate_time_in_spree():
+
+		var tiempo = (time_passed - first_killtime_in_spree)
+
+		update_max_combo()
+
+
+		if tiempo > 0:
+			return tiempo
+		else:
+			return 0
+
 
 func update_last_time_killed():
 	
@@ -170,31 +197,10 @@ func update_max_combo():
 	
 	max_combo_time = max((time_passed - first_killtime_in_spree), max_combo_time)
 
-func calculate_time_in_spree():
-	
-	var tiempo = (time_passed - first_killtime_in_spree)
-	
-	update_max_combo()
-	
-	
-	if tiempo > 0:
-		return tiempo
-	else:
-		return 0
-
-func combo_time_in_spree():
-	
-	if in_combo():
-		return (calculate_time_in_spree())
-	else:
-		return 0
 
 func save_combo_time_to_total():
 	segundos_combo_total += time_passed - last_kill_time
 	
-
-func combo():
-	return 3 * combo_time_in_spree()
 
 
 func in_combo() -> bool:
