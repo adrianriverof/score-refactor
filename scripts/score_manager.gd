@@ -53,7 +53,7 @@ func get_score():
 func set_score(value):
 	score = value
 
-func get_combo_level():
+func get_combo_level() -> int:
 	update_combo_level_based_on_combo()
 	return combo_level
 func reset_combo_level():
@@ -89,7 +89,7 @@ func calculate_combo_level(time_in_combo: float) -> int:
 		return 5
 
 
-func select_combo_level_based_on_time():
+func select_combo_level_based_on_time() -> int:
 	if in_combo():
 		combo_level = calculate_combo_level(calculate_time_in_spree())
 		return combo_level
@@ -205,7 +205,7 @@ func combo():
 	return 3 * combo_time_in_spree()
 
 
-func in_combo():
+func in_combo() -> bool:
 	
 	if (time_passed - last_kill_time) < combo_time:
 		return true 
