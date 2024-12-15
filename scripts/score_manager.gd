@@ -2,6 +2,8 @@ extends Node
 class_name Scoremanager
 
 
+onready var spree = load("res://scripts/spree.gd")
+
 
 
 var huevo_golpeado = false

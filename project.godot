@@ -23,11 +23,17 @@ _global_script_classes=[ {
 "class": "Scoremanager",
 "language": "GDScript",
 "path": "res://scripts/score_manager.gd"
+}, {
+"base": "Node",
+"class": "Spree",
+"language": "GDScript",
+"path": "res://scripts/spree.gd"
 } ]
 _global_script_class_icons={
 "GutHookScript": "",
 "GutTest": "",
-"Scoremanager": ""
+"Scoremanager": "",
+"Spree": ""
 }
 
 [application]
