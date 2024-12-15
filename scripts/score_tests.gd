@@ -254,7 +254,7 @@ func test_max_combo_shows_max_combo():
 	sut.time_passed += 1
 	sut.update_max_combo()
 	
-	assert_eq(sut.max_combo_time,(3))
+	assert_eq(sut.max_combo_time(),(3))
 	
 func skip_test_second_max_combo():
 	var sut = ScoreManager.new()

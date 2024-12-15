@@ -8,7 +8,7 @@ var spree = Spree.new()
 var huevo_golpeado = false
 var huevo_golpeado_ultimo_segundo = false
 
-var max_combo_time = 0
+
 var second_max_combo_time = 0
 
 var puntos_por_cuca = 100
@@ -66,6 +66,9 @@ func calculate_combo_level(time_in_combo: float) -> int:
 		return 5
 
 
+func max_combo_time():
+	return spree.max_combo_time
+
 func get_score():
 	return score
 
@@ -91,6 +94,7 @@ func decrease_combo_level():
 
 func select_combo_level_based_on_time() -> int:
 	if in_combo():
+		spree.update_max_combo(time_passed)
 		combo_level = calculate_combo_level(calculate_time_in_spree(time_passed))
 		return combo_level
 	else: 
@@ -143,7 +147,7 @@ func matar_cuca(extra_base = 0, extra_combo = 0):
 
 
 func combo():
-	return 3 * combo_time_in_spree()
+	return (3 * combo_time_in_spree())
 	
 
 
@@ -182,7 +186,7 @@ func lose_combo():
 	reset_combo_level()
 	
 func update_max_combo():
-	pass
+	spree.update_max_combo(time_passed)
 
 func save_combo_time_to_total():
 	segundos_combo_total += time_passed - last_kill_time
