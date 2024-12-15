@@ -15,7 +15,7 @@ var puntos_por_cuca = 100
 var multip_cuca_melee = 4
 
 export var last_kill_time = -100
-var first_killtime_in_spree = -100
+#var first_killtime_in_spree = -100
 
 var score = 0
 
@@ -169,7 +169,8 @@ func update_last_time_killed():
 	else: #no estabas en combo, entonces consigues el primer nivel
 		
 		# seleccionamos nueva primera kill
-		first_killtime_in_spree = time_passed
+		spree.start(time_passed)
+		#first_killtime_in_spree = time_passed
 		
 		# primer nivel de combo (el 0 es )
 		set_combo_level(2)
@@ -181,12 +182,7 @@ func lose_combo():
 	reset_combo_level()
 	
 func update_max_combo():
-
-	if max_combo_time >= 100:
-		max_combo_time = 0
-	
-	max_combo_time = max((time_passed - first_killtime_in_spree), max_combo_time)
-
+	pass
 
 func save_combo_time_to_total():
 	segundos_combo_total += time_passed - last_kill_time
