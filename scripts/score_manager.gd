@@ -2,9 +2,8 @@ extends Node
 class_name Scoremanager
 
 
-onready var spree = load("res://scripts/spree.gd")
 
-
+var spree = Spree.new()
 
 var huevo_golpeado = false
 var huevo_golpeado_ultimo_segundo = false
@@ -156,16 +155,8 @@ func combo_time_in_spree():
 		return 0 
 	
 func calculate_time_in_spree(passed_time: float):
+		return spree.calculate_time_in_spree(passed_time)
 
-		var tiempo = (passed_time - first_killtime_in_spree)
-
-		update_max_combo()
-
-
-		if tiempo > 0:
-			return tiempo
-		else:
-			return 0
 
 
 func update_last_time_killed():
